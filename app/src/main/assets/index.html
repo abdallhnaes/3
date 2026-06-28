@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>محروقات</title>
+  <style>
+    :root{
+      --bg:#f4f6fb;--card:#ffffff;--text:#172033;--muted:#6d7890;--line:#e3e8f2;
+      --main:#176b52;--main2:#0f4f3d;--danger:#c94040;--warn:#c47b00;--blue:#2563eb;
+      --shadow:0 14px 35px rgba(31,50,80,.10);--radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.45;padding-bottom:92px}
+    header{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,#0d3d2e,#176b52);color:#fff;padding:18px 16px 20px;border-bottom-left-radius:28px;border-bottom-right-radius:28px;box-shadow:0 16px 32px rgba(12,61,45,.22)}
+    .top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.app-title{font-size:20px;font-weight:950;margin:0}.sub-title{font-size:12px;opacity:.86;margin-top:4px}
+    .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:8px 10px;border-radius:999px;font-size:12px;white-space:nowrap}.user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.logout-btn{padding:8px 10px;font-size:12px;background:rgba(255,255,255,.18);box-shadow:none;border:1px solid rgba(255,255,255,.24)}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.summary-card{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:17px;padding:11px}.summary-card span{display:block;font-size:11px;opacity:.85;margin-bottom:4px}.summary-card strong{font-size:13px;display:block;line-height:1.7}
+    main{padding:14px;max-width:900px;margin:auto}.page{display:none;animation:fade .16s ease-out}.page.active{display:block}@keyframes fade{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}h2{font-size:18px;margin:0 0 12px;font-weight:950}h3{font-size:15px;margin:14px 0 8px;font-weight:950;color:#22334d}
+    label{display:block;font-size:12px;color:var(--muted);font-weight:850;margin:11px 2px 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:#fbfcff;color:var(--text);border-radius:14px;padding:12px 13px;font-size:15px;outline:none}textarea{min-height:68px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--main);box-shadow:0 0 0 4px rgba(23,107,82,.10)}input[readonly]{background:#eef3f8;color:#596579;cursor:not-allowed}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}button{border:0;border-radius:15px;padding:12px 14px;font-weight:950;font-size:14px;color:#fff;background:var(--main);cursor:pointer;box-shadow:0 10px 20px rgba(23,107,82,.18)}button.secondary{background:#26364d}button.light{background:#eef3f8;color:#26364d;box-shadow:none;border:1px solid var(--line)}button.danger{background:var(--danger)}button.warn{background:var(--warn)}button.blue{background:var(--blue)}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btns button{flex:1;min-width:120px}
+    .tabs{position:fixed;left:10px;right:10px;bottom:10px;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:8px;box-shadow:0 15px 38px rgba(20,40,70,.18)}.tab{background:transparent;color:var(--muted);box-shadow:none;border-radius:16px;padding:10px 6px;font-size:12px}.tab.active{background:var(--main);color:#fff;box-shadow:0 10px 20px rgba(23,107,82,.18)}
+    .product-box{border:1px solid var(--line);border-radius:18px;padding:12px;margin:10px 0;background:#fbfcff}.mini-list{display:grid;gap:9px;margin-top:10px}.item{border:1px solid var(--line);border-radius:17px;background:#fff;padding:12px}.item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:6px}.item-title{font-weight:950;font-size:14px}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#eef7f3;color:var(--main2);font-weight:950;font-size:11px;white-space:nowrap}.tag.red{background:#fff0f0;color:var(--danger)}.tag.orange{background:#fff7e8;color:var(--warn)}.tag.blue{background:#eef4ff;color:var(--blue)}.muted{color:var(--muted);font-size:12px}.money{font-weight:950;font-size:16px}.debt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{padding:18px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;background:#fbfcff}.toast{position:fixed;top:18px;left:14px;right:14px;z-index:99;background:#172033;color:#fff;border-radius:16px;padding:12px 14px;text-align:center;font-weight:850;box-shadow:0 15px 35px rgba(0,0,0,.22);display:none}.small-actions{display:flex;gap:8px;align-items:center;margin-top:9px}.small-actions input{padding:10px;font-size:13px}.small-actions button{padding:10px;font-size:12px;min-width:74px}.app-shell{display:none}.app-shell.active{display:block}.login-screen{min-height:100vh;padding:24px 14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#0d3d2e,#176b52 56%,#f4f6fb 56%)}.login-card{width:min(440px,100%);background:#fff;border-radius:28px;padding:20px;box-shadow:0 24px 55px rgba(0,0,0,.18)}.login-logo{width:62px;height:62px;border-radius:22px;background:linear-gradient(135deg,#176b52,#0d3d2e);display:grid;place-items:center;color:#fff;font-size:28px;font-weight:950;margin-bottom:12px}.login-title{font-size:22px;font-weight:950;margin:0 0 4px}.login-hint{font-size:12px;color:var(--muted);margin-bottom:14px}.locked-note{padding:12px;border-radius:15px;background:#fff7e8;color:#7a4d00;font-size:12px;font-weight:850;margin-bottom:10px}.danger-note{padding:12px;border-radius:15px;background:#fff0f0;color:#8a2525;font-size:12px;font-weight:850;margin-bottom:10px}
+    @media(max-width:520px){.row,.row3,.debt-grid{grid-template-columns:1fr}.summary-grid{grid-template-columns:repeat(2,1fr)}.tabs{left:8px;right:8px;gap:5px}.tab{font-size:11px;padding:9px 4px}.top-row{align-items:flex-start}.user-info{justify-content:flex-start}.app-title{font-size:18px}}
+  </style>
+</head>
+<body>
+  <div class="toast" id="toast"></div>
+
+
+  <section class="login-screen" id="activationScreen" style="display:none">
+    <div class="login-card">
+      <div class="login-logo">⛽</div>
+      <h1 class="login-title">تفعيل المالك</h1>
+      <div class="login-hint">هذه الخطوة تظهر أول مرة فقط على كل جهاز جديد. بدون رمز المالك لا يمكن تشغيل البرنامج أو إنشاء مستخدمين.</div>
+      <div class="locked-note">عند نقل التطبيق إلى جهاز آخر سيطلب رمز المالك من جديد، لأن بيانات الدخول لا تكون ظاهرة ولا تنتقل مع التطبيق.</div>
+      <label>رمز المالك</label>
+      <input id="ownerCode" type="password" inputmode="numeric" placeholder="أدخل رمز المالك" />
+      <div class="row">
+        <div><label>اسم المدير</label><input id="firstManagerName" placeholder="مثال: المدير" /></div>
+        <div><label>رمز المدير الجديد</label><input id="firstManagerPin" type="password" inputmode="numeric" placeholder="اختر رمز المدير" /></div>
+      </div>
+      <div class="row">
+        <div><label>اسم الموظف</label><input id="firstEmployeeName" placeholder="مثال: الموظف" /></div>
+        <div><label>رمز الموظف الجديد</label><input id="firstEmployeePin" type="password" inputmode="numeric" placeholder="اختر رمز الموظف" /></div>
+      </div>
+      <div class="btns"><button onclick="activateOwner()">تفعيل البرنامج</button></div>
+    </div>
+  </section>
+
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">⛽</div>
+      <h1 class="login-title">تسجيل الدخول</h1>
+      <div class="login-hint">اختر نوع المستخدم وأدخل رمز الدخول. لا تظهر رموز الدخول داخل التطبيق.</div>
+      <label>نوع المستخدم</label>
+      <select id="loginRole"><option value="manager">مدير</option><option value="employee">موظف</option></select>
+      <label>رمز الدخول</label>
+      <input id="loginPin" type="password" inputmode="numeric" placeholder="أدخل الرمز" />
+      <div class="btns"><button onclick="login()">دخول</button></div>
+    </div>
+  </section>
+
+  <div class="app-shell" id="appShell">
+    <header>
+      <div class="top-row">
+        <div><h1 class="app-title">محروقات</h1><div class="sub-title">مازوت، بنزين، غاز — الموظف يبيع فقط والسعر محدد من المدير</div></div>
+        <div class="user-info"><div class="pill" id="userText"></div><div class="pill" id="todayText"></div><button class="logout-btn" onclick="logout()">خروج</button></div>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-card"><span>الكاش</span><strong id="cashTop">0</strong></div>
+        <div class="summary-card"><span>الدين لنا</span><strong id="receivableTop">0</strong></div>
+        <div class="summary-card"><span>الدين علينا</span><strong id="payableTop">0</strong></div>
+        <div class="summary-card"><span>صافي الدين</span><strong id="netDebtTop">0</strong></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page active manager-only" id="page-setup">
+        <div class="card">
+          <h2>أولاً: تعيين القيم الابتدائية</h2>
+          <p class="muted">هذه الصفحة للمدير فقط. ضع الكاش الموجود بكل عملة والمخزون الحالي لكل مادة.</p>
+          <div class="row3">
+            <div><label>الكاش بالدولار</label><input id="setupCashUSD" type="number" inputmode="decimal" placeholder="مثال: 100" /></div>
+            <div><label>الكاش بالتركي</label><input id="setupCashTRY" type="number" inputmode="decimal" placeholder="مثال: 1000" /></div>
+            <div><label>الكاش بالسوري</label><input id="setupCashSYP" type="number" inputmode="decimal" placeholder="مثال: 500000" /></div>
+          </div>
+          <div id="setupProducts"></div>
+          <div class="btns"><button onclick="saveSetup()">حفظ القيم</button><button class="light" onclick="fillExample()">تجربة بأرقام وهمية</button><button class="danger" onclick="resetAll()">تصفير البرنامج</button></div>
+        </div>
+        <div class="card">
+          <h2>إدارة المستخدمين</h2>
+          <div class="row"><div><label>اسم المدير</label><input id="managerName" /></div><div><label>رمز المدير</label><input id="managerPin" type="password" inputmode="numeric" /></div></div>
+          <div class="row"><div><label>اسم الموظف</label><input id="employeeName" /></div><div><label>رمز الموظف</label><input id="employeePin" type="password" inputmode="numeric" /></div></div>
+          <div class="btns"><button class="blue" onclick="saveUsers()">حفظ المستخدمين</button><button class="warn" onclick="lockDevice()">قفل الجهاز وإعادة التفعيل</button></div>
+        </div>
+        <div class="card"><h2>المخزون الحالي</h2><div id="stockList" class="mini-list"></div></div>
+      </section>
+
+      <section class="page" id="page-sale">
+        <div class="card">
+          <h2>واجهة البيع</h2>
+          <div class="row">
+            <div><label>المادة</label><select id="saleProduct" onchange="syncSalePrice()"></select></div>
+            <div><label>طريقة البيع</label><select id="saleMode"><option value="cash">نقدًا</option><option value="debt">دين على الزبون</option></select></div>
+          </div>
+          <div class="row3">
+            <div><label>العملة</label><select id="saleCurrency" onchange="syncSalePrice()"><option value="USD">دولار</option><option value="TRY">ليرة تركية</option><option value="SYP">ليرة سورية</option></select></div>
+            <div><label>الكمية</label><input id="saleQty" type="number" inputmode="decimal" placeholder="مثال: 20" /></div>
+            <div><label>سعر البيع المحدد من المدير</label><input id="salePrice" type="number" inputmode="decimal" placeholder="حسب العملة المختارة" /></div>
+          </div>
+          <label>اسم الزبون</label><input id="saleCustomer" placeholder="اكتب نقدي أو اسم الزبون" />
+          <label>ملاحظة اختيارية</label><textarea id="saleNote" placeholder="مثال: بيع مازوت للمولدة"></textarea>
+          <div class="btns"><button onclick="addSale()">تسجيل البيع</button></div>
+        </div>
+        <div class="card"><h2>المخزون الحالي</h2><div class="muted">هذه القائمة للعرض فقط، ولا يمكن للموظف تعديلها.</div><div id="stockListPublic" class="mini-list"></div></div>
+        <div class="card"><h2>آخر عمليات البيع</h2><div id="salesList" class="mini-list"></div></div>
+      </section>
+
+      <section class="page manager-only" id="page-purchase">
+        <div class="card">
+          <h2>واجهة شراء الموارد</h2>
+          <div class="locked-note">هذه الواجهة للمدير فقط. الموظف لا يستطيع الشراء.</div>
+          <div class="row">
+            <div><label>المادة</label><select id="purchaseProduct" onchange="syncPurchasePrice()"></select></div>
+            <div><label>طريقة الدفع</label><select id="purchaseMode"><option value="cash">نقدًا</option><option value="debt">دين علينا للمورد</option></select></div>
+          </div>
+          <div class="row3">
+            <div><label>العملة</label><select id="purchaseCurrency" onchange="syncPurchasePrice()"><option value="USD">دولار</option><option value="TRY">ليرة تركية</option><option value="SYP">ليرة سورية</option></select></div>
+            <div><label>الكمية</label><input id="purchaseQty" type="number" inputmode="decimal" placeholder="مثال: 100" /></div>
+            <div><label>سعر الشراء للوحدة</label><input id="purchasePrice" type="number" inputmode="decimal" placeholder="حسب العملة المختارة" /></div>
+          </div>
+          <label>اسم المورد</label><input id="purchaseSupplier" placeholder="اسم المورد" />
+          <label>ملاحظة اختيارية</label><textarea id="purchaseNote" placeholder="مثال: شراء دفعة جديدة"></textarea>
+          <div class="btns"><button onclick="addPurchase()">تسجيل الشراء</button></div>
+        </div>
+        <div class="card"><h2>آخر عمليات الشراء</h2><div id="purchasesList" class="mini-list"></div></div>
+      </section>
+
+      <section class="page" id="page-debts">
+        <div class="card">
+          <h2>واجهة الدين: لنا وعلينا</h2>
+          <div class="locked-note">المدير يرى الديون لنا وعلينا. الموظف يستطيع تسجيل دين للزبون وقبض / توفية دين الزبون فقط، ولا يستطيع حذف الديون أو دفع ديون الموردين.</div>
+          <div class="debt-grid"><div class="product-box"><div class="muted">مجموع الدين لنا</div><div class="money" id="receivableBox">0</div></div><div class="product-box manager-only"><div class="muted">مجموع الدين علينا</div><div class="money" id="payableBox">0</div></div></div>
+          <h3>تسجيل دين</h3>
+          <div class="row3"><div class="manager-only"><label>نوع الدين</label><select id="debtType"><option value="receivable">دين لنا</option><option value="payable">دين علينا</option></select></div><div><label>العملة</label><select id="debtCurrency"><option value="USD">دولار</option><option value="TRY">ليرة تركية</option><option value="SYP">ليرة سورية</option></select></div><div><label>المبلغ</label><input id="debtAmount" type="number" inputmode="decimal" placeholder="مثال: 50" /></div></div>
+          <label>الاسم</label><input id="debtPerson" placeholder="اسم الزبون" />
+          <label>ملاحظة</label><textarea id="debtNote" placeholder="سبب الدين"></textarea>
+          <div class="btns"><button onclick="addManualDebt()">تسجيل الدين</button></div>
+        </div>
+        <div class="card"><h2>ديون لنا</h2><div id="receivableList" class="mini-list"></div></div>
+        <div class="card manager-only"><h2>ديون علينا</h2><div id="payableList" class="mini-list"></div></div>
+      </section>
+
+      <section class="page" id="page-log">
+        <div class="card">
+          <h2>السجل لكل العمليات</h2>
+          <p class="muted">يعرض البيع، الشراء، تسجيل الديون، قبض الديون، ودفع الديون. يمكن البحث باسم الزبون أو المورد.</p>
+          <label>فلترة حسب اسم الزبون / المورد</label>
+          <input id="logFilter" placeholder="اكتب الاسم للبحث" oninput="renderLog()" />
+        </div>
+        <div class="card"><h2>العمليات</h2><div id="logList" class="mini-list"></div></div>
+      </section>
+    </main>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab active manager-only" data-page="setup" onclick="showPage('setup',this)">القيم</button>
+      <button class="tab" data-page="sale" onclick="showPage('sale',this)">البيع</button>
+      <button class="tab manager-only" data-page="purchase" onclick="showPage('purchase',this)">الشراء</button>
+      <button class="tab" data-page="debts" onclick="showPage('debts',this)">الديون</button>
+      <button class="tab" data-page="log" onclick="showPage('log',this)">السجل</button>
+    </nav>
+  </div>
+
+  <script>
+    const KEY = 'fuel_stand_simple_v5_log_debts';
+    const OLD_KEYS = ['fuel_stand_simple_v4_owner_locked','fuel_stand_simple_v3_roles_currency','fuel_stand_simple_v2_roles','fuel_stand_simple_v1'];
+    const SESSION_KEY = 'fuel_stand_session_role';
+    const OWNER_CODE = atob('NTEzNTEzNTEz');
+    const currencies = [
+      {id:'USD', name:'دولار', sym:'$'},
+      {id:'TRY', name:'ليرة تركية', sym:'₺'},
+      {id:'SYP', name:'ليرة سورية', sym:'ل.س'}
+    ];
+    const defaultProducts = [
+      {id:'diesel', name:'مازوت', unit:'لتر', stock:0, salePrice:{USD:0,TRY:0,SYP:0}, purchasePrice:{USD:0,TRY:0,SYP:0}},
+      {id:'gasoline', name:'بنزين', unit:'لتر', stock:0, salePrice:{USD:0,TRY:0,SYP:0}, purchasePrice:{USD:0,TRY:0,SYP:0}},
+      {id:'gas', name:'غاز', unit:'أسطوانة', stock:0, salePrice:{USD:0,TRY:0,SYP:0}, purchasePrice:{USD:0,TRY:0,SYP:0}}
+    ];
+    const defaultUsers = {manager:{name:'المدير', pin:''}, employee:{name:'الموظف', pin:''}};
+    let state = load();
+    let currentRole = sessionStorage.getItem(SESSION_KEY) || '';
+
+    function n(v){ const x = Number(v); return isFinite(x) ? x : 0; }
+    function cleanAmount(v){ return n(v).toFixed(2).replace(/\.00$/,''); }
+    function cMeta(cur){ return currencies.find(c=>c.id===cur) || currencies[0]; }
+    function money(v, cur='USD'){ return `${cleanAmount(v)} ${cMeta(cur).sym}`; }
+    function today(){ return new Date().toLocaleDateString('ar-SY'); }
+    function id(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+    function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; clearTimeout(window.__toast); window.__toast=setTimeout(()=>t.style.display='none',2200); }
+    function isManager(){ return currentRole === 'manager'; }
+    function product(pid){ return state.products.find(p=>p.id===pid) || state.products[0]; }
+    function actorName(){ return currentRole==='manager' ? state.users.manager.name : state.users.employee.name; }
+    function buildInitialLogs(s){
+      const out=[];
+      (s.sales||[]).forEach(x=>out.push({id:'log-'+(x.id||id()),date:x.date||today(),type:'sale',title:x.mode==='debt'?'بيع بالدين':'بيع نقدي',person:x.customer||'',amount:n(x.total),currency:x.currency||'USD',details:`${x.productName||''} - ${cleanAmount(x.qty||0)} ${x.unit||''}`,by:x.byName||x.by||''}));
+      (s.purchases||[]).forEach(x=>out.push({id:'log-'+(x.id||id()),date:x.date||today(),type:'purchase',title:x.mode==='debt'?'شراء بالدين':'شراء نقدي',person:x.supplier||'',amount:n(x.total),currency:x.currency||'USD',details:`${x.productName||''} - ${cleanAmount(x.qty||0)} ${x.unit||''}`,by:x.byName||x.by||''}));
+      (s.debts||[]).forEach(x=>out.push({id:'log-debt-'+(x.id||id()),date:x.date||today(),type:'debt',title:x.type==='receivable'?'تسجيل دين لنا':'تسجيل دين علينا',person:x.person||'',amount:n(x.amount),currency:x.currency||'USD',details:x.note||'',by:x.by||''}));
+      return out;
+    }
+    function addLog(entry){ state.logs = state.logs || []; state.logs.unshift(Object.assign({id:id(),date:today(),by:actorName(),type:'note',title:'عملية',person:'',amount:0,currency:'USD',details:''}, entry)); }
+    function normalizeCash(cash){
+      if(typeof cash === 'number') return {USD:n(cash), TRY:0, SYP:0};
+      cash = cash || {}; return {USD:n(cash.USD), TRY:n(cash.TRY), SYP:n(cash.SYP)};
+    }
+    function normalizePrice(p){
+      if(typeof p === 'number') return {USD:n(p), TRY:0, SYP:0};
+      p = p || {}; return {USD:n(p.USD), TRY:n(p.TRY), SYP:n(p.SYP)};
+    }
+    function normalize(saved){
+      const base = {activated:false, cash:{USD:0,TRY:0,SYP:0}, products:defaultProducts, debts:[], sales:[], purchases:[], logs:[], users:defaultUsers};
+      const s = Object.assign({}, base, saved || {});
+      s.cash = normalizeCash(s.cash);
+      s.products = defaultProducts.map(dp=>{
+        const old = (s.products || []).find(p=>p.id===dp.id) || {};
+        return Object.assign({}, dp, old, {salePrice:normalizePrice(old.salePrice), purchasePrice:normalizePrice(old.purchasePrice)});
+      });
+      s.debts = Array.isArray(s.debts) ? s.debts.map(d=>Object.assign({currency:'USD', paid:0}, d)) : [];
+      s.sales = Array.isArray(s.sales) ? s.sales.map(x=>Object.assign({currency:'USD'}, x)) : [];
+      s.purchases = Array.isArray(s.purchases) ? s.purchases.map(x=>Object.assign({currency:'USD'}, x)) : [];
+      s.logs = Array.isArray(s.logs) ? s.logs : [];
+      if(!s.logs.length) s.logs = buildInitialLogs(s);
+      s.users = Object.assign({}, defaultUsers, s.users || {});
+      s.users.manager = Object.assign({}, defaultUsers.manager, s.users.manager || {});
+      s.users.employee = Object.assign({}, defaultUsers.employee, s.users.employee || {});
+      s.activated = !!s.activated || (!!(saved && saved.users) && !!s.users.manager.pin && !!s.users.employee.pin);
+      return s;
+    }
+    function load(){
+      try{ const saved = JSON.parse(localStorage.getItem(KEY)); if(saved) return normalize(saved); }catch(e){}
+      for(const k of OLD_KEYS){ try{ const old=JSON.parse(localStorage.getItem(k)); if(old) return normalize(old); }catch(e){} }
+      return normalize({});
+    }
+    function save(){ localStorage.setItem(KEY, JSON.stringify(state)); render(); }
+    function sumByCurrency(list, selector){ const out={USD:0,TRY:0,SYP:0}; list.forEach(x=>{ const cur=x.currency || 'USD'; out[cur]+=selector(x); }); return out; }
+    function formatCurrencyLines(obj){ return currencies.map(c=>`${c.name}: ${money(obj[c.id]||0,c.id)}`).join('<br>'); }
+
+    function activateOwner(){
+      const code=document.getElementById('ownerCode').value.trim();
+      const mn=document.getElementById('firstManagerName').value.trim()||'المدير';
+      const mp=document.getElementById('firstManagerPin').value.trim();
+      const en=document.getElementById('firstEmployeeName').value.trim()||'الموظف';
+      const ep=document.getElementById('firstEmployeePin').value.trim();
+      if(code!==OWNER_CODE) return toast('رمز المالك غير صحيح');
+      if(mp.length<4 || ep.length<4) return toast('اجعل رمز المدير والموظف 4 أرقام على الأقل');
+      if(mp===ep) return toast('يفضل أن يكون رمز المدير مختلفًا عن رمز الموظف');
+      state.activated=true;
+      state.users.manager={name:mn,pin:mp};
+      state.users.employee={name:en,pin:ep};
+      save();
+      applyAuth();
+      toast('تم تفعيل البرنامج. يمكنك تسجيل الدخول الآن');
+    }
+    function lockDevice(){
+      if(!requireManager()) return;
+      if(confirm('سيتم قفل التطبيق على هذا الجهاز وسيطلب رمز المالك من جديد. هل تريد المتابعة؟')){
+        currentRole=''; sessionStorage.removeItem(SESSION_KEY);
+        state.activated=false; state.users=JSON.parse(JSON.stringify(defaultUsers));
+        save(); applyAuth(); toast('تم قفل الجهاز');
+      }
+    }
+    function login(){
+      if(!state.activated) return toast('يجب تفعيل البرنامج أولاً برمز المالك');
+      const role=document.getElementById('loginRole').value; const pin=document.getElementById('loginPin').value.trim();
+      if(pin === (state.users[role] && state.users[role].pin)){
+        currentRole=role; sessionStorage.setItem(SESSION_KEY,role); document.getElementById('loginPin').value=''; applyAuth(); render();
+        const page = isManager() ? 'setup' : 'sale'; showPage(page, document.querySelector(`.tab[data-page="${page}"]`));
+        toast(`تم الدخول كـ ${role==='manager'?'مدير':'موظف'}`);
+      }else toast('رمز الدخول غير صحيح');
+    }
+    function logout(){ currentRole=''; sessionStorage.removeItem(SESSION_KEY); applyAuth(); }
+    function applyAuth(){
+      const activated=!!state.activated;
+      const logged=activated && (currentRole==='manager'||currentRole==='employee');
+      const act=document.getElementById('activationScreen'); if(act) act.style.display=activated?'none':'flex';
+      document.getElementById('loginScreen').style.display=activated && !logged ? 'flex' : 'none';
+      document.getElementById('appShell').classList.toggle('active',logged);
+      document.querySelectorAll('.manager-only').forEach(el=>{ el.style.display=isManager()?'':'none'; });
+      const tabs=document.getElementById('tabs'); if(tabs) tabs.style.gridTemplateColumns=isManager()?'repeat(5,1fr)':'repeat(3,1fr)';
+      if(logged) document.getElementById('userText').textContent=currentRole==='manager'?`مدير: ${state.users.manager.name}`:`موظف: ${state.users.employee.name}`;
+      updateSalePriceLock();
+    }
+    function updateSalePriceLock(){
+      const priceInput=document.getElementById('salePrice');
+      if(!priceInput) return;
+      const locked=currentRole==='employee';
+      priceInput.readOnly=locked;
+      priceInput.title=locked?'سعر البيع يحدده المدير ولا يمكن للموظف تعديله':'';
+    }
+    function requireManager(){ if(!isManager()){ toast('هذه العملية للمدير فقط'); return false; } return true; }
+    function showPage(name,btn){
+      if(['setup','purchase'].includes(name) && !requireManager()) name='sale';
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById('page-'+name).classList.add('active');
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); const realBtn=(btn&&btn.dataset&&btn.dataset.page===name)?btn:document.querySelector(`.tab[data-page="${name}"]`); if(realBtn) realBtn.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function buildSetup(){
+      document.getElementById('setupCashUSD').value=state.cash.USD||0; document.getElementById('setupCashTRY').value=state.cash.TRY||0; document.getElementById('setupCashSYP').value=state.cash.SYP||0;
+      document.getElementById('managerName').value=state.users.manager.name||'المدير'; document.getElementById('managerPin').value=state.users.manager.pin||'';
+      document.getElementById('employeeName').value=state.users.employee.name||'الموظف'; document.getElementById('employeePin').value=state.users.employee.pin||'';
+      document.getElementById('setupProducts').innerHTML=state.products.map(p=>`
+        <div class="product-box"><h3>${p.name}</h3>
+          <div class="row3"><div><label>الوحدة</label><input id="unit-${p.id}" value="${p.unit||''}" /></div><div><label>المخزون الابتدائي</label><input id="stock-${p.id}" type="number" inputmode="decimal" value="${p.stock||0}" /></div><div><label>اسم المادة</label><input id="name-${p.id}" value="${p.name||''}" /></div></div>
+          <h3>سعر البيع الافتراضي</h3><div class="row3"><div><label>دولار</label><input id="saleUSD-${p.id}" type="number" inputmode="decimal" value="${p.salePrice.USD||0}" /></div><div><label>تركي</label><input id="saleTRY-${p.id}" type="number" inputmode="decimal" value="${p.salePrice.TRY||0}" /></div><div><label>سوري</label><input id="saleSYP-${p.id}" type="number" inputmode="decimal" value="${p.salePrice.SYP||0}" /></div></div>
+          <h3>سعر الشراء الافتراضي</h3><div class="row3"><div><label>دولار</label><input id="buyUSD-${p.id}" type="number" inputmode="decimal" value="${p.purchasePrice.USD||0}" /></div><div><label>تركي</label><input id="buyTRY-${p.id}" type="number" inputmode="decimal" value="${p.purchasePrice.TRY||0}" /></div><div><label>سوري</label><input id="buySYP-${p.id}" type="number" inputmode="decimal" value="${p.purchasePrice.SYP||0}" /></div></div>
+        </div>`).join('');
+    }
+    function saveSetup(){
+      if(!requireManager()) return;
+      state.cash={USD:n(document.getElementById('setupCashUSD').value), TRY:n(document.getElementById('setupCashTRY').value), SYP:n(document.getElementById('setupCashSYP').value)};
+      state.products=state.products.map(p=>({...p, name:document.getElementById('name-'+p.id).value.trim()||p.name, unit:document.getElementById('unit-'+p.id).value.trim()||p.unit, stock:n(document.getElementById('stock-'+p.id).value), salePrice:{USD:n(document.getElementById('saleUSD-'+p.id).value),TRY:n(document.getElementById('saleTRY-'+p.id).value),SYP:n(document.getElementById('saleSYP-'+p.id).value)}, purchasePrice:{USD:n(document.getElementById('buyUSD-'+p.id).value),TRY:n(document.getElementById('buyTRY-'+p.id).value),SYP:n(document.getElementById('buySYP-'+p.id).value)}}));
+      save(); toast('تم حفظ القيم الابتدائية');
+    }
+    function saveUsers(){
+      if(!requireManager()) return; const mn=document.getElementById('managerName').value.trim()||'المدير'; const mp=document.getElementById('managerPin').value.trim(); const en=document.getElementById('employeeName').value.trim()||'الموظف'; const ep=document.getElementById('employeePin').value.trim(); if(!mp||!ep) return toast('لا تترك رموز الدخول فارغة'); state.users.manager={name:mn,pin:mp}; state.users.employee={name:en,pin:ep}; save(); applyAuth(); toast('تم حفظ المستخدمين');
+    }
+    function fillExample(){
+      if(!requireManager()) return;
+      state.cash={USD:200,TRY:3000,SYP:500000};
+      state.products=[
+        {id:'diesel',name:'مازوت',unit:'لتر',stock:300,salePrice:{USD:1,TRY:32,SYP:12000},purchasePrice:{USD:.9,TRY:30,SYP:11000}},
+        {id:'gasoline',name:'بنزين',unit:'لتر',stock:150,salePrice:{USD:1.2,TRY:38,SYP:14500},purchasePrice:{USD:1.1,TRY:35,SYP:13200}},
+        {id:'gas',name:'غاز',unit:'أسطوانة',stock:20,salePrice:{USD:12,TRY:380,SYP:145000},purchasePrice:{USD:10,TRY:330,SYP:125000}}
+      ]; save(); toast('تم وضع أرقام تجريبية');
+    }
+    function resetAll(){ if(!requireManager()) return; if(confirm('سيتم حذف كل البيانات. هل أنت متأكد؟')){ OLD_KEYS.concat(KEY).forEach(k=>localStorage.removeItem(k)); state=normalize({}); save(); toast('تم تصفير البرنامج'); } }
+
+    function optionLists(){
+      const opts=state.products.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+      document.getElementById('saleProduct').innerHTML=opts; document.getElementById('purchaseProduct').innerHTML=opts;
+      syncSalePrice(); syncPurchasePrice();
+    }
+    function syncSalePrice(){ const p=product(document.getElementById('saleProduct').value); const cur=document.getElementById('saleCurrency').value||'USD'; document.getElementById('salePrice').value=(p.salePrice&&p.salePrice[cur])||0; updateSalePriceLock(); }
+    function syncPurchasePrice(){ const p=product(document.getElementById('purchaseProduct').value); const cur=document.getElementById('purchaseCurrency').value||'USD'; document.getElementById('purchasePrice').value=(p.purchasePrice&&p.purchasePrice[cur])||0; }
+
+    function addSale(){
+      const pid=document.getElementById('saleProduct').value; const p=product(pid); const cur=document.getElementById('saleCurrency').value; const qty=n(document.getElementById('saleQty').value); const priceInput=document.getElementById('salePrice'); const price=isManager()?n(priceInput.value):n((p.salePrice&&p.salePrice[cur])||0); const customer=document.getElementById('saleCustomer').value.trim()||'زبون نقدي'; const mode=document.getElementById('saleMode').value; const note=document.getElementById('saleNote').value.trim();
+      priceInput.value=price;
+      if(qty<=0) return toast('أدخل كمية البيع بشكل صحيح');
+      if(price<=0) return toast('سعر البيع غير محدد. يجب على المدير تحديد السعر أولًا');
+      if(p.stock<qty) return toast(`المخزون غير كافٍ: الموجود ${cleanAmount(p.stock)} ${p.unit}`);
+      const total=qty*price; p.stock-=qty; if(isManager()) p.salePrice[cur]=price;
+      const rec={id:id(),date:today(),by:currentRole,byName:actorName(),product:pid,productName:p.name,unit:p.unit,qty,price,total,currency:cur,customer,mode,note};
+      state.sales.unshift(rec);
+      if(mode==='cash') state.cash[cur]+=total;
+      else {
+        const debt={id:id(),type:'receivable',person:customer,amount:total,paid:0,currency:cur,date:today(),note:note||`بيع ${p.name} دين`,by:rec.byName};
+        state.debts.unshift(debt);
+        addLog({type:'debt',title:'تسجيل دين من بيع',person:customer,amount:total,currency:cur,details:`${p.name} - ${cleanAmount(qty)} ${p.unit}`,by:rec.byName});
+      }
+      addLog({type:'sale',title:mode==='cash'?'بيع نقدي':'بيع بالدين',person:customer,amount:total,currency:cur,details:`${p.name} - ${cleanAmount(qty)} ${p.unit}`,by:rec.byName});
+      document.getElementById('saleQty').value=''; document.getElementById('saleCustomer').value=''; document.getElementById('saleNote').value=''; save(); toast('تم تسجيل البيع');
+    }
+
+    function addPurchase(){
+      if(!requireManager()) return;
+      const pid=document.getElementById('purchaseProduct').value; const p=product(pid); const cur=document.getElementById('purchaseCurrency').value; const qty=n(document.getElementById('purchaseQty').value); const price=n(document.getElementById('purchasePrice').value); const supplier=document.getElementById('purchaseSupplier').value.trim()||'مورد'; const mode=document.getElementById('purchaseMode').value; const note=document.getElementById('purchaseNote').value.trim();
+      if(qty<=0||price<=0) return toast('أدخل الكمية والسعر بشكل صحيح'); const total=qty*price; if(mode==='cash'&&state.cash[cur]<total) return toast(`الكاش غير كافٍ بعملة ${cMeta(cur).name}`);
+      p.stock+=qty; p.purchasePrice[cur]=price; const rec={id:id(),date:today(),by:currentRole,byName:state.users.manager.name,product:pid,productName:p.name,unit:p.unit,qty,price,total,currency:cur,supplier,mode,note};
+      state.purchases.unshift(rec); if(mode==='cash') state.cash[cur]-=total; else state.debts.unshift({id:id(),type:'payable',person:supplier,amount:total,paid:0,currency:cur,date:today(),note:note||`شراء ${p.name} دين`,by:rec.byName});
+      addLog({type:'purchase',title:mode==='cash'?'شراء نقدي':'شراء بالدين',person:supplier,amount:total,currency:cur,details:`${p.name} - ${cleanAmount(qty)} ${p.unit}`,by:rec.byName});
+      document.getElementById('purchaseQty').value=''; document.getElementById('purchaseSupplier').value=''; document.getElementById('purchaseNote').value=''; save(); toast('تم تسجيل الشراء');
+    }
+
+    function addManualDebt(){
+      const type=isManager() ? document.getElementById('debtType').value : 'receivable';
+      if(type==='payable' && !requireManager()) return;
+      const cur=document.getElementById('debtCurrency').value; const amount=n(document.getElementById('debtAmount').value); const person=document.getElementById('debtPerson').value.trim(); const note=document.getElementById('debtNote').value.trim();
+      if(!person||amount<=0) return toast('أدخل الاسم والمبلغ');
+      const rec={id:id(),type,person,amount,paid:0,currency:cur,date:today(),note,by:actorName()};
+      state.debts.unshift(rec);
+      addLog({type:'debt',title:type==='receivable'?'تسجيل دين لنا':'تسجيل دين علينا',person,amount,currency:cur,details:note,by:actorName()});
+      document.getElementById('debtAmount').value=''; document.getElementById('debtPerson').value=''; document.getElementById('debtNote').value=''; save(); toast('تم تسجيل الدين');
+    }
+    function payDebt(debtId){
+      const d=state.debts.find(x=>x.id===debtId); if(!d) return;
+      if(d.type==='payable' && !requireManager()) return;
+      const amount=n(document.getElementById('pay-'+debtId).value); const remain=d.amount-d.paid;
+      if(amount<=0) return toast('أدخل مبلغ صحيح'); if(amount>remain) return toast('المبلغ أكبر من الباقي');
+      if(d.type==='payable'&&state.cash[d.currency]<amount) return toast(`الكاش غير كافٍ بعملة ${cMeta(d.currency).name}`);
+      d.paid+=amount; if(d.type==='receivable') state.cash[d.currency]+=amount; else state.cash[d.currency]-=amount;
+      addLog({type:d.type==='receivable'?'payment_in':'payment_out',title:d.type==='receivable'?'قبض / توفية دين':'دفع دين علينا',person:d.person,amount,currency:d.currency,details:`من أصل ${money(d.amount,d.currency)}، الباقي ${money(Math.max(0,d.amount-d.paid),d.currency)}`,by:actorName()});
+      save(); toast(d.type==='receivable'?'تم قبض / توفية الدين':'تم دفع دفعة');
+    }
+    function deleteDebt(debtId){ if(!requireManager()) return; if(confirm('حذف هذا الدين؟')){ const d=state.debts.find(x=>x.id===debtId); if(d) addLog({type:'delete',title:'حذف دين',person:d.person,amount:n(d.amount)-n(d.paid),currency:d.currency,details:d.note||'',by:actorName()}); state.debts=state.debts.filter(d=>d.id!==debtId); save(); } }
+
+    function totals(){
+      const receivable=sumByCurrency(state.debts.filter(d=>d.type==='receivable'), d=>Math.max(0,n(d.amount)-n(d.paid)));
+      const payable=sumByCurrency(state.debts.filter(d=>d.type==='payable'), d=>Math.max(0,n(d.amount)-n(d.paid)));
+      const net={USD:receivable.USD-payable.USD,TRY:receivable.TRY-payable.TRY,SYP:receivable.SYP-payable.SYP}; return {receivable,payable,net};
+    }
+    function renderTop(){ const t=totals(); document.getElementById('cashTop').innerHTML=formatCurrencyLines(state.cash); document.getElementById('receivableTop').innerHTML=formatCurrencyLines(t.receivable); document.getElementById('payableTop').innerHTML=formatCurrencyLines(t.payable); document.getElementById('netDebtTop').innerHTML=formatCurrencyLines(t.net); document.getElementById('receivableBox').innerHTML=formatCurrencyLines(t.receivable); document.getElementById('payableBox').innerHTML=formatCurrencyLines(t.payable); document.getElementById('todayText').textContent=today(); }
+    function renderStock(){
+      const managerHtml=state.products.map(p=>`<div class="item"><div class="item-head"><div class="item-title">${p.name}</div><span class="tag">${cleanAmount(p.stock)} ${p.unit}</span></div><div class="muted">بيع افتراضي: ${money(p.salePrice.USD,'USD')} / ${money(p.salePrice.TRY,'TRY')} / ${money(p.salePrice.SYP,'SYP')}</div><div class="muted">شراء افتراضي: ${money(p.purchasePrice.USD,'USD')} / ${money(p.purchasePrice.TRY,'TRY')} / ${money(p.purchasePrice.SYP,'SYP')}</div></div>`).join('')||`<div class="empty">لا يوجد مخزون</div>`;
+      const publicHtml=state.products.map(p=>`<div class="item"><div class="item-head"><div class="item-title">${p.name}</div><span class="tag blue">${cleanAmount(p.stock)} ${p.unit}</span></div><div class="muted">سعر البيع: ${money(p.salePrice.USD,'USD')} / ${money(p.salePrice.TRY,'TRY')} / ${money(p.salePrice.SYP,'SYP')}</div></div>`).join('')||`<div class="empty">لا يوجد مخزون</div>`;
+      const managerBox=document.getElementById('stockList'); if(managerBox) managerBox.innerHTML=managerHtml;
+      const publicBox=document.getElementById('stockListPublic'); if(publicBox) publicBox.innerHTML=publicHtml;
+    }
+    function renderSales(){ const list=state.sales.slice(0,12); document.getElementById('salesList').innerHTML=list.length?list.map(s=>`<div class="item"><div class="item-head"><div class="item-title">${s.productName} - ${cleanAmount(s.qty)} ${s.unit}</div><span class="tag ${s.mode==='debt'?'orange':''}">${s.mode==='cash'?'نقدًا':'دين'}</span></div><div class="money">${money(s.total,s.currency)}</div><div class="muted">${s.customer} • ${s.date} • بواسطة: ${s.byName||'غير محدد'}${s.note?' • '+s.note:''}</div></div>`).join(''):`<div class="empty">لا توجد عمليات بيع بعد</div>`; }
+    function renderPurchases(){ const list=state.purchases.slice(0,12); document.getElementById('purchasesList').innerHTML=list.length?list.map(s=>`<div class="item"><div class="item-head"><div class="item-title">${s.productName} - ${cleanAmount(s.qty)} ${s.unit}</div><span class="tag ${s.mode==='debt'?'orange':''}">${s.mode==='cash'?'نقدًا':'دين'}</span></div><div class="money">${money(s.total,s.currency)}</div><div class="muted">${s.supplier} • ${s.date} • بواسطة: ${s.byName||'غير محدد'}${s.note?' • '+s.note:''}</div></div>`).join(''):`<div class="empty">لا توجد عمليات شراء بعد</div>`; }
+    function renderDebts(){
+      const receivable=state.debts.filter(d=>d.type==='receivable'&&d.amount-d.paid>0);
+      const payable=state.debts.filter(d=>d.type==='payable'&&d.amount-d.paid>0);
+      document.getElementById('receivableList').innerHTML=debtItems(receivable,'receivable');
+      const pbox=document.getElementById('payableList'); if(pbox) pbox.innerHTML=debtItems(payable,'payable');
+    }
+    function debtItems(list,type){
+      if(!list.length) return `<div class="empty">لا توجد ديون ${type==='receivable'?'لنا':'علينا'}</div>`;
+      return list.map(d=>{ const remain=n(d.amount)-n(d.paid); const canPay=type==='receivable'||isManager(); const del=isManager()?`<button class="danger" onclick="deleteDebt('${d.id}')">حذف</button>`:''; const pay=canPay?`<input id="pay-${d.id}" type="number" inputmode="decimal" placeholder="مبلغ الدفعة" /><button onclick="payDebt('${d.id}')">${type==='receivable'?'قبض':'دفع'}</button>`:''; return `<div class="item"><div class="item-head"><div class="item-title">${d.person}</div><span class="tag ${type==='payable'?'red':''}">${type==='receivable'?'لنا':'علينا'}</span></div><div class="money">الباقي: ${money(remain,d.currency)}</div><div class="muted">الأصل: ${money(d.amount,d.currency)} • المدفوع: ${money(d.paid,d.currency)} • ${d.date}${d.by?' • بواسطة: '+d.by:''}${d.note?' • '+d.note:''}</div><div class="small-actions">${pay}${del}</div></div>`; }).join('');
+    }
+    function renderLog(){
+      const box=document.getElementById('logList'); if(!box) return;
+      const input=document.getElementById('logFilter'); const q=(input&&input.value?input.value:'').trim().toLowerCase();
+      const list=(state.logs||[]).filter(x=>!q || String(x.person||'').toLowerCase().includes(q)).slice(0,120);
+      if(!list.length){ box.innerHTML=`<div class="empty">لا توجد عمليات مطابقة</div>`; return; }
+      box.innerHTML=list.map(x=>{ const tag=x.type==='purchase'?'blue':(x.type==='payment_in'?'':(x.type==='payment_out'||x.type==='delete'?'red':(x.type==='debt'?'orange':''))); return `<div class="item"><div class="item-head"><div class="item-title">${x.title||'عملية'}</div><span class="tag ${tag}">${x.date||''}</span></div><div class="money">${money(x.amount||0,x.currency||'USD')}</div><div class="muted">الاسم: ${x.person||'بدون اسم'} • بواسطة: ${x.by||'غير محدد'}${x.details?' • '+x.details:''}</div></div>`; }).join('');
+    }
+    function render(){ applyAuth(); buildSetup(); optionLists(); renderTop(); renderStock(); renderSales(); renderPurchases(); renderDebts(); renderLog(); }
+    applyAuth(); render(); if(state.activated && currentRole==='employee') showPage('sale', document.querySelector('.tab[data-page="sale"]'));
+  </script>
+</body>
+</html>
